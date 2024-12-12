@@ -1,52 +1,67 @@
-public class Penguin extends Animal implements Walk , Swim{
-    private boolean isSwimming;
-    private int WalkingSpeed;
-    private int swimmingSpeed;
+public class Penguin extends Animal implements Walk, Swim, Eat {
+    private boolean isSwimming; // Indicates if the penguin is swimming or walking
+    private int walkSpeed; // Speed in walking mode
+    private int swimSpeed; // Speed in swimming mode
 
-    public boolean getSwimming() {
-        return isSwimming;
-    }
+    // Constructor
     public Penguin() {
-        // Calls the parent class constructor with "Penguin"
         super("Penguin");
     }
-    public void setSwimming(boolean swimming) {
-        this.isSwimming = swimming;
+
+    // Getters and Setters
+    public boolean getIsSwimming() {
+        return isSwimming;
     }
 
-    public int getWalkingSpeed() {
-        return WalkingSpeed;
+    public void setIsSwimming(boolean isSwimming) {
+        this.isSwimming = isSwimming;
     }
 
-    public void setWalkingSpeed(int walkingSpeed) {
-        WalkingSpeed = walkingSpeed;
+    public int getWalkSpeed() {
+        return walkSpeed;
     }
 
-    public int getSwimmingSpeed() {
-        return swimmingSpeed;
+    public void setWalkSpeed(int walkSpeed) {
+        this.walkSpeed = walkSpeed;
     }
 
-    public void setSwimmingSpeed(int swimmingSpeed) {
-        this.swimmingSpeed = swimmingSpeed;
+    public int getSwimSpeed() {
+        return swimSpeed;
     }
 
+    public void setSwimSpeed(int swimSpeed) {
+        this.swimSpeed = swimSpeed;
+    }
+
+    // Override eatingFood method from Eat interface
     @Override
     public void eatingFood() {
-        System.out.println("Penguin: I am eating delicious fish");
+        System.out.println("Penguin: I am eating delicious fish.");
     }
 
-    // Implement the method from Eat interface
+    // Implement eatingCompleted method from Eat interface
     @Override
     public void eatingCompleted() {
-        System.out.println("I have eaten fish");
+        System.out.println("Penguin: I have finished eating fish.");
     }
 
-    @Override
-    public void swimmming() {
-        System.out.println("Penguin: I am swimming at the speed of "+swimmingSpeed+" nautical miles per hour");
-    }
+    // Implement walking method from Walk interface
     @Override
     public void walking() {
-        System.out.println( "Penguin: I am walking at the speed "+ WalkingSpeed +" mph");
+        if (!isSwimming) {
+            System.out.println("Penguin: I am walking at a speed of " + walkSpeed + " km/h.");
+        } else {
+            System.out.println("Penguin: I cannot walk while swimming.");
+        }
+    }
+
+    // Implement swimming method from Swim interface
+    @Override
+    public void swimming() {
+        if (isSwimming) {
+            System.out.println("Penguin: I am swimming at a speed of " + swimSpeed + " km/h.");
+        } else {
+            System.out.println("Penguin: I cannot swim while walking.");
+        }
     }
 }

@@ -5,5 +5,5 @@ public interface Walk {
      *
      * @return
      */
-    public void walking();
+    void walking();
 }

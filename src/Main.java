@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
-        // Objects for animals
+        // Step 1: Create objects for Tiger, Dolphin, and Penguin
         Tiger tigerObject = new Tiger();
         Dolphin dolphinObject = new Dolphin();
         Penguin penguinObject = new Penguin();
@@ -12,38 +13,40 @@ public class Main {
         boolean continueProgram = true;
 
         while (continueProgram) {
+            // Display main menu and get animal choice
             int animalChoice = animalChoiceMenu(keyboard);
 
             switch (animalChoice) {
                 case 1: // Tiger
                     System.out.println("The animal which is chosen is: " + tigerObject.getNameOfAnimal());
-                    handleAnimalDetailsMenu(keyboard, tigerObject);
+                    handleAnimalMenu(keyboard, tigerObject);
                     break;
 
                 case 2: // Dolphin
                     System.out.println("The animal which is chosen is: " + dolphinObject.getNameOfAnimal());
-                    handleAnimalDetailsMenu(keyboard, dolphinObject);
+                    handleAnimalMenu(keyboard, dolphinObject);
                     break;
 
                 case 3: // Penguin
                     System.out.println("The animal which is chosen is: " + penguinObject.getNameOfAnimal());
-                    handlePenguinDetailsMenu(keyboard, penguinObject);
+                    handlePenguinMenu(keyboard, penguinObject);
                     break;
 
                 default:
                     System.out.println("Invalid choice. Please select 1, 2, or 3.");
             }
 
-            System.out.println("Do you want to continue? (Enter 1 for yes/ 2 for no):");
+            System.out.print("Do you want to continue? (Enter 1 for yes / 2 for no): ");
             continueProgram = keyboard.nextInt() == 1;
         }
 
         keyboard.close();
+        System.out.println("Exiting program. Goodbye!");
     }
 
-    // Animal choice menu with Penguin added
-    private static int animalChoiceMenu(Scanner keyboard) {
-        System.out.println("******* ZOO ANIMAL choice menu ******");
+    // Method to display the main menu
+    public static int animalChoiceMenu(Scanner keyboard) {
+        System.out.println("\n******* ZOO ANIMAL choice menu ******");
         System.out.println("1. Tiger");
         System.out.println("2. Dolphin");
         System.out.println("3. Penguin");
@@ -51,8 +54,19 @@ public class Main {
         return keyboard.nextInt();
     }
 
-    // Handles animal details menu for Tiger and Dolphin
-    private static void handleAnimalDetailsMenu(Scanner keyboard, Animal animal) {
+    // Method to display the animal details menu
+    public static int animalDetailsManipulationMenu(Scanner keyboard, Animal animal) {
+        System.out.println("\n******* ANIMAL details menu for: " + animal.getNameOfAnimal() + " ******");
+        System.out.println("1. Set properties");
+        System.out.println("2. Display properties");
+        System.out.println("3. Display movement");
+        System.out.println("4. Display eating");
+        System.out.print("Enter choice (1-4): ");
+        return keyboard.nextInt();
+    }
+
+    // Method to handle general animal menu
+    public static void handleAnimalMenu(Scanner keyboard, Animal animal) {
         boolean continueWithAnimal = true;
 
         while (continueWithAnimal) {
@@ -60,66 +74,29 @@ public class Main {
 
             switch (menuChoice) {
                 case 1: // Set properties
-                    if (animal instanceof Tiger tiger) {
-                        System.out.println("Enter age of tiger:");
-                        tiger.setAge(keyboard.nextInt());
-                        System.out.println("Enter height of tiger:");
-                        tiger.setHeight((int) keyboard.nextDouble());
-                        System.out.println("Enter weight of tiger:");
-                        tiger.setWeight((int) keyboard.nextDouble());
-                        System.out.println("Enter number of stripes:");
-                        tiger.setNumberOfStripes(keyboard.nextInt());
-
-                        System.out.println("Enter speed:");
-                        tiger.setSpeed(keyboard.nextDouble());
-
-                        System.out.println("Enter sound level of roar:");
-                        tiger.setSoundLevelOfRoar(keyboard.nextInt());
-                    } else if (animal instanceof Dolphin dolphin) {
-                        System.out.println("Enter color of dolphin:");
-                        dolphin.setColorOfDolphin(keyboard.next());
-                        System.out.println("Enter age of dolphin:");
-                        dolphin.setAge(keyboard.nextInt());
-                        System.out.println("Enter height of dolphin:");
-                        dolphin.setHeight((int) keyboard.nextDouble());
-                        System.out.println("Enter weight of dolphin:");
-                        dolphin.setWeight((int) keyboard.nextDouble());
-                        System.out.println("Enter swimming speed:");
-                        dolphin.setSwimmingSpeed((int) keyboard.nextDouble());
-                    }
+                    setAnimalProperties(keyboard, animal);
                     break;
 
                 case 2: // Display properties
-                    if (animal instanceof Tiger tiger) {
-                        System.out.println("Age: " + tiger.getAge());
-                        System.out.println("Height: " + tiger.getHeight());
-                        System.out.println("Weight: " + tiger.getWeight());
-                        tiger.walking();
-                        System.out.println("Number of Stripes: " + tiger.getNumberOfStripes());
-                        System.out.println("Sound Level of Roar: " + tiger.getSoundLevelOfRoar());
-                    } else if (animal instanceof Dolphin dolphin) {
-                        System.out.println("Color of Dolphin: " + dolphin.getColorOfDolphin());
-                        System.out.println("Age: " + dolphin.getAge());
-                        System.out.println("Height: " + dolphin.getHeight());
-                        System.out.println("Weight: " + dolphin.getWeight());
-                        dolphin.swimmming();
-                    }
+                    displayAnimalProperties(animal);
                     break;
 
                 case 3: // Display movement
-                    if (animal instanceof Tiger) {
-                        System.out.println("Tiger is walking...");
-                    } else if (animal instanceof Dolphin) {
-                        System.out.println("Dolphin is swimming...");
+                    if (animal instanceof Walk) {
+                        ((Walk) animal).walking();
+                    } else if (animal instanceof Swim) {
+                        ((Swim) animal).swimming();
+                    } else {
+                        System.out.println(animal.getNameOfAnimal() + " has no specific movement behavior.");
                     }
                     break;
 
-                case 4: // Display eating
-                    if (animal instanceof Tiger) {
-                        ((Tiger) animal).eatingCompleted();
-                    } else if (animal instanceof Dolphin dolphin) {
-                        dolphin.eatingFood();
-                        dolphin.eatingCompleted();
+                case 4: // Display eating behavior
+                    if (animal instanceof Eat) {
+                        ((Eat) animal).eatingFood();
+                        ((Eat) animal).eatingCompleted();
+                    } else {
+                        System.out.println(animal.getNameOfAnimal() + " does not have eating functionality.");
                     }
                     break;
 
@@ -127,51 +104,40 @@ public class Main {
                     System.out.println("Invalid choice.");
             }
 
-            System.out.println("Continue with this animal? (Enter 1 for yes/ 2 for no):");
+            System.out.print("Continue with this animal? (Enter 1 for yes / 2 for no): ");
             continueWithAnimal = keyboard.nextInt() == 1;
         }
     }
 
-    // Handles animal details menu specifically for Penguin
-    private static void handlePenguinDetailsMenu(Scanner keyboard, Penguin penguin) {
+    // Method to handle penguin-specific menu
+    public static void handlePenguinMenu(Scanner keyboard, Penguin penguin) {
         boolean continueWithPenguin = true;
 
         while (continueWithPenguin) {
+            System.out.print("Is the penguin swimming or walking? (Enter 1 for swimming / 2 for walking): ");
+            boolean isSwimming = keyboard.nextInt() == 1;
+            penguin.setIsSwimming(isSwimming);
+
             int menuChoice = animalDetailsManipulationMenu(keyboard, penguin);
 
             switch (menuChoice) {
                 case 1: // Set properties
-                    System.out.println("Enter age of penguin:");
-                    penguin.setAge(keyboard.nextInt());
-                    System.out.println("Enter height of penguin:");
-                    penguin.setHeight((int) keyboard.nextDouble());
-                    System.out.println("Enter weight of penguin:");
-                    penguin.setWeight((int) keyboard.nextDouble());
-                    System.out.println("Enter swimming speed:");
-                    penguin.setSwimmingSpeed((int) keyboard.nextDouble());
-                    System.out.println("Is the dolphin swimming (true/false):");
-                    penguin.setSwimming(keyboard.nextBoolean());
-                    System.out.println("Enter walking speed:");
-                    penguin.setWalkingSpeed((int) keyboard.nextDouble());
+                    setAnimalProperties(keyboard, penguin);
                     break;
 
                 case 2: // Display properties
-                    System.out.println("Age: " + penguin.getAge());
-                    System.out.println("Height: " + penguin.getHeight());
-                    System.out.println("Weight: " + penguin.getWeight());
-                    System.out.println("Swimming Speed: " + penguin.getSwimmingSpeed());
-                    System.out.println("Walking Speed: " + penguin.getWalkingSpeed());
+                    displayAnimalProperties(penguin);
                     break;
 
                 case 3: // Display movement
-                    if(penguin.getSwimming()){
-                        penguin.swimmming();
-                    }else {
+                    if (isSwimming) {
+                        penguin.swimming();
+                    } else {
                         penguin.walking();
                     }
                     break;
 
-                case 4: // Display eating
+                case 4: // Display eating behavior
                     penguin.eatingFood();
                     penguin.eatingCompleted();
                     break;
@@ -180,19 +146,59 @@ public class Main {
                     System.out.println("Invalid choice.");
             }
 
-            System.out.println("Continue with this animal? (Enter 1 for yes/ 2 for no):");
+            System.out.print("Continue with this penguin? (Enter 1 for yes / 2 for no): ");
             continueWithPenguin = keyboard.nextInt() == 1;
         }
     }
 
-    // Animal details manipulation menu
-    private static int animalDetailsManipulationMenu(Scanner keyboard, Animal animal) {
-        System.out.println("******* ANIMAL details menu for: " + animal.getNameOfAnimal() + " ******");
-        System.out.println("1. Set properties");
-        System.out.println("2. Display properties");
-        System.out.println("3. Display movement");
-        System.out.println("4. Display eating");
-        System.out.print("Enter choice (1-4): ");
-        return keyboard.nextInt();
+    // Method to set animal properties
+    public static void setAnimalProperties(Scanner keyboard, Animal animal) {
+        System.out.print("Enter age: ");
+        animal.setAge(keyboard.nextInt());
+
+        System.out.print("Enter weight: ");
+        animal.setWeight(keyboard.nextInt());
+
+        System.out.print("Enter height: ");
+        animal.setHeight(keyboard.nextInt());
+
+        if (animal instanceof Tiger) {
+            System.out.print("Enter speed: ");
+            ((Tiger) animal).setSpeed(keyboard.nextInt());
+
+            System.out.print("Enter roar level: ");
+            ((Tiger) animal).setRoarSoundLevel(keyboard.nextInt());
+        } else if (animal instanceof Dolphin) {
+            System.out.print("Enter swimming speed: ");
+            ((Dolphin) animal).setSwimmingSpeed(keyboard.nextInt());
+
+            System.out.print("Enter color: ");
+            keyboard.nextLine(); // Consume newline
+            ((Dolphin) animal).setColorOfDolphin(keyboard.nextLine());
+        } else if (animal instanceof Penguin) {
+            System.out.print("Enter walking speed: ");
+            ((Penguin) animal).setWalkSpeed(keyboard.nextInt());
+
+            System.out.print("Enter swimming speed: ");
+            ((Penguin) animal).setSwimSpeed(keyboard.nextInt());
+        }
+    }
+
+    // Method to display animal properties
+    public static void displayAnimalProperties(Animal animal) {
+        System.out.println("Age: " + animal.getAge());
+        System.out.println("Weight: " + animal.getWeight());
+        System.out.println("Height: " + animal.getHeight());
+
+        if (animal instanceof Tiger) {
+            System.out.println("Speed: " + ((Tiger) animal).getSpeed() + " km/h");
+            System.out.println("Roar Level: " + ((Tiger) animal).getRoarSoundLevel());
+        } else if (animal instanceof Dolphin) {
+            System.out.println("Swimming Speed: " + ((Dolphin) animal).getSwimmingSpeed() + " km/h");
+            System.out.println("Color: " + ((Dolphin) animal).getColorOfDolphin());
+        } else if (animal instanceof Penguin) {
+            System.out.println("Walking Speed: " + ((Penguin) animal).getWalkSpeed() + " km/h");
+            System.out.println("Swimming Speed: " + ((Penguin) animal).getSwimSpeed() + " km/h");
+        }
     }
 }
