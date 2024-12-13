@@ -35,11 +35,16 @@ public class Tiger extends Animal implements Walk {
     }
     @Override
     public void walking() {
-        System.out.println("Tiger: I am walking at the speed of " + speed + " mph");
+        System.out.println(getNameOfAnimal() + " is walking at " + speed + " km/h.");
     }
-    // Implement the eatingCompleted() method from Eat interface
+
+    @Override
+    public void eatingFood() {
+        System.out.println(getNameOfAnimal() + " is eating meat.");
+    }
+
     @Override
     public void eatingCompleted() {
-        System.out.println("Tiger: I have eaten meat");
+        System.out.println(getNameOfAnimal() + " has finished eating.");
     }
 }

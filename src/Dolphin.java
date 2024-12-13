@@ -26,17 +26,17 @@ public class Dolphin extends Animal implements Swim {
     }
     @Override
     public void swimming() {
-        System.out.println("Dolphin: I am swimming at the speed of " + swimmingSpeed + " nautical miles per hour");
+        System.out.println(getNameOfAnimal() + " is swimming at " + swimmingSpeed + " km/h.");
     }
-    // Implement the eatingCompleted() method from Eat interface
+
     @Override
     public void eatingFood() {
-        System.out.println("Dolphin: I am eating delicious fish");
+        System.out.println(getNameOfAnimal() + " is eating fish.");
     }
 
     @Override
     public void eatingCompleted() {
-        System.out.println("Dolphin: I have eaten fish");
+        System.out.println(getNameOfAnimal() + " has finished eating.");
     }
 
 }
