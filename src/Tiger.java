@@ -1,15 +1,22 @@
+/**
+ * TODO 1.a: Implement serializable interface for class Tiger
+ */
 public class Tiger extends Animal implements Walk {
-    // Properties specific to Tiger
-    private int numberOfStripes;
-    private int speed;
-    private int roarSoundLevel;
 
-    // Default constructor
+    // property for stripes on tiger
+    int numberOfStripes;
+
+    // property for speed of tiger during walking or running
+    int speed;
+
+    // property for sound level when tiger roars
+    int soundLevel;
+
+
     public Tiger() {
-        super("Tiger"); // Call the parent constructor with "Tiger"
+        super("Tiger");
     }
 
-    // Getters and setters
     public int getNumberOfStripes() {
         return numberOfStripes;
     }
@@ -26,25 +33,22 @@ public class Tiger extends Animal implements Walk {
         this.speed = speed;
     }
 
-    public int getRoarSoundLevel() {
-        return roarSoundLevel;
+    public int getSoundLevel() {
+        return soundLevel;
     }
 
-    public void setRoarSoundLevel(int roarSoundLevel) {
-        this.roarSoundLevel = roarSoundLevel;
-    }
-    @Override
-    public void walking() {
-        System.out.println(getNameOfAnimal() + " is walking at " + speed + " km/h.");
-    }
-
-    @Override
-    public void eatingFood() {
-        System.out.println(getNameOfAnimal() + " is eating meat.");
+    public void setSoundLevel(int soundLevel) {
+        this.soundLevel = soundLevel;
     }
 
     @Override
     public void eatingCompleted() {
-        System.out.println(getNameOfAnimal() + " has finished eating.");
+        System.out.println("Tiger: I have eaten meat.");
     }
+
+    @Override
+    public void walking() {
+        System.out.println("Tiger: I am moving at the speed " + speed);
+    }
+
 }

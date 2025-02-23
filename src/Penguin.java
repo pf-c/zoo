@@ -1,20 +1,18 @@
-public class Penguin extends Animal implements Walk, Swim, Eat {
-    private boolean isSwimming; // Indicates if the penguin is swimming or walking
-    private int walkSpeed; // Speed in walking mode
-    private int swimSpeed; // Speed in swimming mode
+/**
+ * TODO 1.b: Implement serializable interface for class Penguin
+ */
+public class Penguin extends Animal implements Walk, Swim {
 
-    // Constructor
-    public Penguin() {
-        super("Penguin");
-    }
+    boolean isSwimming;
+    int walkSpeed;
+    int swimSpeed;
 
-    // Getters and Setters
-    public boolean getIsSwimming() {
+    public boolean isSwimming() {
         return isSwimming;
     }
 
-    public void setIsSwimming(boolean isSwimming) {
-        this.isSwimming = isSwimming;
+    public void setSwimming(boolean swimming) {
+        isSwimming = swimming;
     }
 
     public int getWalkSpeed() {
@@ -33,31 +31,28 @@ public class Penguin extends Animal implements Walk, Swim, Eat {
         this.swimSpeed = swimSpeed;
     }
 
-    // Override eatingFood method from Eat interface
+    public Penguin() {
+        super("Penguin");
+    }
+
     @Override
     public void eatingFood() {
-        System.out.println(getNameOfAnimal() + " is eating fish.");
+        System.out.println("Penguin: I am eating delicious fish.");
     }
 
-    // Implement eatingCompleted method from Eat interface
     @Override
     public void eatingCompleted() {
-        System.out.println(getNameOfAnimal() + " has finished eating.");
+        System.out.println("Penguin: I have eaten fish.");
     }
 
-    // Implement walking method from Walk interface
-    @Override
-    public void walking() {
-        if (!isSwimming) {
-            System.out.println(getNameOfAnimal() + " is walking at " + walkSpeed + " km/h.");
-        }
-    }
-
-    // Implement swimming method from Swim interface
     @Override
     public void swimming() {
-        if (isSwimming) {
-            System.out.println(getNameOfAnimal() + " is swimming at " + swimSpeed + " km/h.");
-        }
+        System.out.println("Penguin: I am swimming at the speed " + swimSpeed + " nautical miles per hour");
     }
+
+    @Override
+    public void walking() {
+        System.out.println("Penguin: I am walking at the speed " + walkSpeed + " mph");
+    }
+
 }

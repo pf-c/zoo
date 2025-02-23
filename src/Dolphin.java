@@ -1,20 +1,22 @@
+
 public class Dolphin extends Animal implements Swim {
-    // Properties specific to Dolphin
-    private String colorOfDolphin;
-    private int swimmingSpeed;
 
-    // Default constructor
+    // property for color of dolphin
+    String color;
+
+    // property for speed of dolphin
+    int swimmingSpeed;
+
     public Dolphin() {
-        super("Dolphin"); // Call the parent constructor with "Dolphin"
+        super("Dolphin");
     }
 
-    // Getters and setters
-    public String getColorOfDolphin() {
-        return colorOfDolphin;
+    public String getColor() {
+        return color;
     }
 
-    public void setColorOfDolphin(String colorOfDolphin) {
-        this.colorOfDolphin = colorOfDolphin;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public int getSwimmingSpeed() {
@@ -24,19 +26,20 @@ public class Dolphin extends Animal implements Swim {
     public void setSwimmingSpeed(int swimmingSpeed) {
         this.swimmingSpeed = swimmingSpeed;
     }
-    @Override
-    public void swimming() {
-        System.out.println(getNameOfAnimal() + " is swimming at " + swimmingSpeed + " km/h.");
-    }
 
     @Override
     public void eatingFood() {
-        System.out.println(getNameOfAnimal() + " is eating fish.");
+        System.out.println("Dolphin: I am eating delicious fish.");
     }
 
     @Override
     public void eatingCompleted() {
-        System.out.println(getNameOfAnimal() + " has finished eating.");
+        System.out.println("Dolphin: I have eaten fish.");
+    }
+
+    @Override
+    public void swimming() {
+        System.out.println("Dolphin: I am swimming at the speed " + swimmingSpeed);
     }
 
 }
